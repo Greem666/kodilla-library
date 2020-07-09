@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-//@Transactional
+@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RentLogRepositoryTestSuite {
