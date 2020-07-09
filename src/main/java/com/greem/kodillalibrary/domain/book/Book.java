@@ -1,5 +1,6 @@
-package com.greem.kodillalibrary.domain;
+package com.greem.kodillalibrary.domain.book;
 
+import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 

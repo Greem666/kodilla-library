@@ -1,19 +1,24 @@
-package com.greem.kodillalibrary.domain;
+package com.greem.kodillalibrary.domain.bookcopy;
 
-import com.greem.kodillalibrary.domain.enums.RentStatus;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.greem.kodillalibrary.domain.book.Book;
+import com.greem.kodillalibrary.domain.bookcopy.enums.RentStatus;
+import com.greem.kodillalibrary.domain.rentlog.RentLog;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//@NamedQuery(
+//        name = "BookCopy.findAllBookCopiesByTitle",
+//        query = "FROM BookCopy" +
+//                "WHERE book.title = :TITLE"
+//)
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @Getter
+@Setter
 @Entity
 @Table(name = "BOOK_COPIES")
 public class BookCopy {
@@ -23,7 +28,8 @@ public class BookCopy {
     @Column(name = "ID")
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "TITLE_ID")
     private Book book;
 
@@ -32,11 +38,9 @@ public class BookCopy {
     private RentStatus rentStatus;
 
     @EqualsAndHashCode.Exclude
-    @OneToMany(
-            targetEntity = RentLog.class,
-            mappedBy = "bookCopy",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
+    @ManyToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "bookCopies"
     )
     private List<RentLog> rentLogs = new ArrayList<>();
 

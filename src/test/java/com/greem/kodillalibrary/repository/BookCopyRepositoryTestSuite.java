@@ -1,23 +1,26 @@
 package com.greem.kodillalibrary.repository;
 
-import com.greem.kodillalibrary.domain.Book;
-import com.greem.kodillalibrary.domain.BookCopy;
-import com.greem.kodillalibrary.domain.enums.RentStatus;
+import com.greem.kodillalibrary.domain.book.Book;
+import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
+import com.greem.kodillalibrary.domain.bookcopy.enums.RentStatus;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
+@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CopyRepositoryTestSuite {
+public class BookCopyRepositoryTestSuite {
     @Autowired
-    private CopyRepository copyRepository;
+    private BookCopyRepository bookCopyRepository;
 
     @Autowired
     private BookRepository bookRepository;
@@ -32,7 +35,7 @@ public class CopyRepositoryTestSuite {
         BookCopy copyLost = new BookCopy(book, RentStatus.LOST);
         BookCopy copyDestroyed = new BookCopy(book, RentStatus.DESTROYED);
 
-        copyRepository.saveAll(Arrays.asList(copyAvailable, copyHired, copyLost, copyDestroyed));
+        bookCopyRepository.saveAll(Arrays.asList(copyAvailable, copyHired, copyLost, copyDestroyed));
 
         // When
         long copyAvailableId = copyAvailable.getId();
@@ -50,7 +53,7 @@ public class CopyRepositoryTestSuite {
         for (int i = 0; i < copyIds.size(); i++) {
             long bookCopyId = copyIds.get(i);
             BookCopy createdBookCopy = bookCopies.get(i);
-            BookCopy retrievedBookCopy = copyRepository.findById(bookCopyId).orElse(new BookCopy());
+            BookCopy retrievedBookCopy = bookCopyRepository.findById(bookCopyId).orElse(new BookCopy());
 
             Assert.assertEquals(createdBookCopy, retrievedBookCopy);
             Assert.assertEquals(book, retrievedBookCopy.getBook());
@@ -59,7 +62,7 @@ public class CopyRepositoryTestSuite {
         // Clean-up
         try {
             for (long copyId: Arrays.asList(copyAvailableId, copyHiredId, copyLostId, copyDestroyedId)) {
-                copyRepository.deleteById(copyId);
+                bookCopyRepository.deleteById(copyId);
             }
             bookRepository.deleteById(bookId);
         } catch (Exception e) {

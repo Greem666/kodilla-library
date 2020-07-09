@@ -1,16 +1,20 @@
-package com.greem.kodillalibrary.domain;
+package com.greem.kodillalibrary.domain.rentlog;
 
+import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
+import com.greem.kodillalibrary.domain.libraryuser.LibraryUser;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @Getter
+@Setter
 @Entity
 @Table(name = "RENT_LOGS")
 public class RentLog {
@@ -20,16 +24,19 @@ public class RentLog {
     @Column(name = "ID")
     private long id;
 
-    @ManyToOne(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "JOIN_RENT_LOGS_BOOK_COPIES",
+            joinColumns = {@JoinColumn(name = "RENTLOG_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "BOOKCOPY_ID", referencedColumnName = "ID")}
     )
-    @JoinColumn(name = "BOOK_COPY_ID")
-    private BookCopy bookCopy;
+    private List<BookCopy> bookCopies = new ArrayList<>();
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "LIBRARY_USER_ID")
     private LibraryUser libraryUser;
@@ -42,12 +49,12 @@ public class RentLog {
     private LocalDate returnDate;
 
     public RentLog(BookCopy bookCopy, LibraryUser libraryUser) {
-        setBookCopy(bookCopy);
+        addBookCopy(bookCopy);
         setLibraryUser(libraryUser);
     }
 
-    public void setBookCopy(BookCopy bookCopy) {
-        this.bookCopy = bookCopy;
+    public void addBookCopy(BookCopy bookCopy) {
+        this.bookCopies.add(bookCopy);
         bookCopy.getRentLogs().add(this);
     }
 

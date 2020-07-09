@@ -1,9 +1,8 @@
-package com.greem.kodillalibrary.domain;
+package com.greem.kodillalibrary.domain.libraryuser;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.greem.kodillalibrary.domain.rentlog.RentLog;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +12,8 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+//@Builder(access = AccessLevel.PUBLIC)
+//@SuperBuilder
 @EqualsAndHashCode
 @Getter
 @Entity

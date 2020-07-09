@@ -1,14 +1,17 @@
 package com.greem.kodillalibrary.repository;
 
-import com.greem.kodillalibrary.domain.LibraryUser;
+import com.greem.kodillalibrary.domain.libraryuser.LibraryUser;
 import org.junit.Assert;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
+
+@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class LibraryUserRepositoryTestSuite {
