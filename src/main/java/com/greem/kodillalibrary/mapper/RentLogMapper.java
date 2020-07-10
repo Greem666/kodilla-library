@@ -1,11 +1,17 @@
 package com.greem.kodillalibrary.mapper;
 
+import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
+import com.greem.kodillalibrary.domain.bookcopy.BookCopyDto;
+import com.greem.kodillalibrary.domain.libraryuser.LibraryUser;
+import com.greem.kodillalibrary.domain.libraryuser.LibraryUserDto;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
 import com.greem.kodillalibrary.domain.rentlog.RentLogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -16,20 +22,24 @@ public class RentLogMapper {
     private LibraryUserMapper libraryUserMapper;
 
     public RentLog mapToRentLog(RentLogDto rentLogDto) {
+        List<BookCopyDto> bookCopyDtoList = Optional.ofNullable(rentLogDto.getBookCopiesDto()).orElse(new ArrayList<>());
+        LibraryUserDto libraryUserDto = Optional.ofNullable(rentLogDto.getLibraryUserDto()).orElse(new LibraryUserDto());
         return new RentLog(
                 rentLogDto.getId(),
-                bookCopyMapper.mapToBookCopyList(rentLogDto.getBookCopiesDto()),
-                libraryUserMapper.mapToLibraryUser(rentLogDto.getLibraryUserDto()),
+                bookCopyMapper.mapToBookCopyList(bookCopyDtoList),
+                libraryUserMapper.mapToLibraryUser(libraryUserDto),
                 rentLogDto.getRentDate(),
                 rentLogDto.getReturnDate()
         );
     }
 
     public RentLogDto mapToRentLogDto(RentLog rentLog) {
+        List<BookCopy> bookCopyList = Optional.ofNullable(rentLog.getBookCopies()).orElse(new ArrayList<>());
+        LibraryUser libraryUser = Optional.ofNullable(rentLog.getLibraryUser()).orElse(new LibraryUser());
         return new RentLogDto(
                 rentLog.getId(),
-                bookCopyMapper.mapToBookCopyDtoList(rentLog.getBookCopies()),
-                libraryUserMapper.mapToLibraryUserDto(rentLog.getLibraryUser()),
+                bookCopyMapper.mapToBookCopyDtoList(bookCopyList),
+                libraryUserMapper.mapToLibraryUserDto(libraryUser),
                 rentLog.getRentDate(),
                 rentLog.getReturnDate()
         );

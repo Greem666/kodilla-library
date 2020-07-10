@@ -13,11 +13,12 @@ import com.greem.kodillalibrary.service.BookCopyDbService;
 import com.greem.kodillalibrary.service.BookDbService;
 import com.greem.kodillalibrary.service.LibraryUserDbService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/v1/library/")
@@ -31,17 +32,17 @@ public class LibraryController {
     private final BookCopyDbService bookCopyDbService;
     private final BookCopyMapper bookCopyMapper;
 
-    @RequestMapping(method = RequestMethod.POST, value = "addLibraryUser", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, value = "addLibraryUser", consumes = APPLICATION_JSON_VALUE)
     public LibraryUser addLibraryUser(@RequestBody LibraryUserDto libraryUserDto) {
         return libraryUserDbService.saveUser(libraryUserMapper.mapToLibraryUser(libraryUserDto));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "addBook", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, value = "addBook", consumes = APPLICATION_JSON_VALUE)
     public Book addBook(@RequestBody BookDto bookDto) {
         return bookDbService.saveBook(bookMapper.mapToBook(bookDto));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "addBookCopy", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, value = "addBookCopy", consumes = APPLICATION_JSON_VALUE)
     public BookCopy addBookCopy(@RequestBody BookCopyDto bookCopyDto) {
         return bookCopyDbService.saveBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDto));
     }

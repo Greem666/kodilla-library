@@ -1,8 +1,10 @@
 package com.greem.kodillalibrary.domain.libraryuser;
 
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,7 +35,6 @@ public class LibraryUser {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @NotNull
     @EqualsAndHashCode.Exclude
     @Column(name = "ACCOUNT_CREATED")
     private Date accountCreated = new Date();

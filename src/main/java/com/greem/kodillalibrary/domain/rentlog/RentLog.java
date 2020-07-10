@@ -5,7 +5,6 @@ import com.greem.kodillalibrary.domain.libraryuser.LibraryUser;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,6 @@ public class RentLog {
     @JoinColumn(name = "LIBRARY_USER_ID")
     private LibraryUser libraryUser;
 
-    @NotNull
     @Column(name = "RENT_DATE")
     private LocalDate rentDate = LocalDate.now();
 

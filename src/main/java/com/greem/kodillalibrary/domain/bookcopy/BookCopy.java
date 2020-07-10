@@ -6,6 +6,7 @@ import com.greem.kodillalibrary.domain.rentlog.RentLog;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class BookCopy {
     @Column(name = "ID")
     private long id;
 
+    @NotNull
     @EqualsAndHashCode.Exclude
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "TITLE_ID")
