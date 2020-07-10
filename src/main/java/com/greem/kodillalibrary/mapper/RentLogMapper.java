@@ -1,13 +1,10 @@
 package com.greem.kodillalibrary.mapper;
 
-import com.greem.kodillalibrary.domain.book.Book;
-import com.greem.kodillalibrary.domain.book.BookDto;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
 import com.greem.kodillalibrary.domain.rentlog.RentLogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +18,7 @@ public class RentLogMapper {
     public RentLog mapToRentLog(RentLogDto rentLogDto) {
         return new RentLog(
                 rentLogDto.getId(),
-                bookCopyMapper.mapToListOfBookCopies(rentLogDto.getBookCopiesDto()),
+                bookCopyMapper.mapToBookCopyList(rentLogDto.getBookCopiesDto()),
                 libraryUserMapper.mapToLibraryUser(rentLogDto.getLibraryUserDto()),
                 rentLogDto.getRentDate(),
                 rentLogDto.getReturnDate()
@@ -31,20 +28,20 @@ public class RentLogMapper {
     public RentLogDto mapToRentLogDto(RentLog rentLog) {
         return new RentLogDto(
                 rentLog.getId(),
-                bookCopyMapper.mapToListOfBookCopiesDto(rentLog.getBookCopies()),
+                bookCopyMapper.mapToBookCopyDtoList(rentLog.getBookCopies()),
                 libraryUserMapper.mapToLibraryUserDto(rentLog.getLibraryUser()),
                 rentLog.getRentDate(),
                 rentLog.getReturnDate()
         );
     }
 
-    public List<RentLogDto> mapToListOfRentLogDto(List<RentLog> listRentLogs) {
+    public List<RentLogDto> mapToRentLogDtoList(List<RentLog> listRentLogs) {
         return listRentLogs.stream()
                 .map(this::mapToRentLogDto)
                 .collect(Collectors.toList());
     }
 
-    public List<RentLog> mapToListOfRentLog(List<RentLogDto> listRentLogsDto) {
+    public List<RentLog> mapToRentLogList(List<RentLogDto> listRentLogsDto) {
         return listRentLogsDto.stream()
                 .map(this::mapToRentLog)
                 .collect(Collectors.toList());

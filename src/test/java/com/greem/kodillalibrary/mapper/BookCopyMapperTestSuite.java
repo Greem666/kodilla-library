@@ -84,7 +84,7 @@ public class BookCopyMapperTestSuite {
 
         // When
         BookDto bookDto = bookMapper.mapToBookDto(book);
-        List<BookCopyDto> listBookCopiesDto = bookCopyMapper.mapToListOfBookCopiesDto(
+        List<BookCopyDto> listBookCopiesDto = bookCopyMapper.mapToBookCopyDtoList(
                 Arrays.asList(bookCopy1, bookCopy2, bookCopy3, bookCopy4)
         );
 

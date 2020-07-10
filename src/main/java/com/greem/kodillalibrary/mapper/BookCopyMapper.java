@@ -2,11 +2,9 @@ package com.greem.kodillalibrary.mapper;
 
 import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopyDto;
-import com.greem.kodillalibrary.domain.rentlog.RentLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +12,7 @@ import java.util.stream.Collectors;
 public class BookCopyMapper {
     @Autowired
     private BookMapper bookMapper;
+
     @Autowired
     private RentLogMapper rentLogMapper;
 
@@ -22,7 +21,7 @@ public class BookCopyMapper {
                 bookCopyDto.getId(),
                 bookMapper.mapToBook(bookCopyDto.getBookDto()),
                 bookCopyDto.getRentStatus(),
-                rentLogMapper.mapToListOfRentLog(bookCopyDto.getRentLogsDto())
+                rentLogMapper.mapToRentLogList(bookCopyDto.getRentLogsDto())
         );
     }
 
@@ -31,17 +30,17 @@ public class BookCopyMapper {
                 bookCopy.getId(),
                 bookMapper.mapToBookDto(bookCopy.getBook()),
                 bookCopy.getRentStatus(),
-                rentLogMapper.mapToListOfRentLogDto(bookCopy.getRentLogs())
+                rentLogMapper.mapToRentLogDtoList(bookCopy.getRentLogs())
         );
     }
 
-    public List<BookCopyDto> mapToListOfBookCopiesDto(List<BookCopy> listBookCopies) {
+    public List<BookCopyDto> mapToBookCopyDtoList(List<BookCopy> listBookCopies) {
         return listBookCopies.stream()
                 .map(this::mapToBookCopyDto)
                 .collect(Collectors.toList());
     }
 
-    public List<BookCopy> mapToListOfBookCopies(List<BookCopyDto> listBookCopiesDto) {
+    public List<BookCopy> mapToBookCopyList(List<BookCopyDto> listBookCopiesDto) {
         return listBookCopiesDto.stream()
                 .map(this::mapToBookCopy)
                 .collect(Collectors.toList());

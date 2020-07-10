@@ -85,7 +85,7 @@ public class LibraryUserMapperTestSuite {
                 new ArrayList<>());
 
         // When
-        List<LibraryUserDto> mappedLibraryUserDtoList = libraryUserMapper.mapToListOfLibraryUserDto(
+        List<LibraryUserDto> mappedLibraryUserDtoList = libraryUserMapper.mapToLibraryUserDtoList(
                 Arrays.asList(libraryUser1, libraryUser2)
         );
 

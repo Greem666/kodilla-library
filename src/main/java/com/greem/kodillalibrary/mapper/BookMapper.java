@@ -5,12 +5,12 @@ import com.greem.kodillalibrary.domain.book.BookDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class BookMapper {
+
     @Autowired
     private BookCopyMapper bookCopyMapper;
 
@@ -20,7 +20,7 @@ public class BookMapper {
                 bookDto.getTitle(),
                 bookDto.getAuthor(),
                 bookDto.getPublicationYear(),
-                bookCopyMapper.mapToListOfBookCopies(bookDto.getBookCopiesDto())
+                bookCopyMapper.mapToBookCopyList(bookDto.getBookCopiesDto())
         );
     }
 
@@ -30,11 +30,11 @@ public class BookMapper {
                 book.getTitle(),
                 book.getAuthor(),
                 book.getPublicationYear(),
-                bookCopyMapper.mapToListOfBookCopiesDto(book.getBookCopies())
+                bookCopyMapper.mapToBookCopyDtoList(book.getBookCopies())
         );
     }
 
-    public List<BookDto> mapToListOfBookDto(List<Book> listBooks) {
+    public List<BookDto> mapToBookDtoList(List<Book> listBooks) {
         return listBooks.stream()
                 .map(this::mapToBookDto)
                 .collect(Collectors.toList());

@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 @Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RentLogMapper {
+public class RentLogMapperTestSuite {
 
     @Test
     public void test() {

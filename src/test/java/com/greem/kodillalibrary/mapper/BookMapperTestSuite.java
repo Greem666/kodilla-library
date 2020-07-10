@@ -75,7 +75,7 @@ public class BookMapperTestSuite {
         Book book3 = new Book(3, "title PH2", "author PH2", 2003, new ArrayList<BookCopy>());
 
         // When
-        List<BookDto> listBookDto = bookMapper.mapToListOfBookDto(Arrays.asList(book1, book2, book3));
+        List<BookDto> listBookDto = bookMapper.mapToBookDtoList(Arrays.asList(book1, book2, book3));
 
         // Then
         int diff = 0;
