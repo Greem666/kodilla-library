@@ -1,5 +1,7 @@
 package com.greem.kodillalibrary.domain.bookcopy;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.greem.kodillalibrary.domain.book.Book;
 import com.greem.kodillalibrary.domain.bookcopy.enums.RentStatus;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
@@ -10,11 +12,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-//@NamedQuery(
-//        name = "BookCopy.findAllBookCopiesByTitle",
-//        query = "FROM BookCopy" +
-//                "WHERE book.title = :TITLE"
-//)
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -29,6 +26,7 @@ public class BookCopy {
     @Column(name = "ID")
     private long id;
 
+    @JsonManagedReference
     @NotNull
     @EqualsAndHashCode.Exclude
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -39,6 +37,7 @@ public class BookCopy {
     @Column(name = "RENT_STATUS")
     private RentStatus rentStatus;
 
+    @JsonBackReference
     @EqualsAndHashCode.Exclude
     @ManyToMany(
             cascade = CascadeType.ALL,
@@ -47,6 +46,12 @@ public class BookCopy {
     private List<RentLog> rentLogs = new ArrayList<>();
 
     public BookCopy(Book book, RentStatus rentStatus) {
+        setBook(book);
+        this.rentStatus = rentStatus;
+    }
+
+    public BookCopy(long id, Book book, RentStatus rentStatus) {
+        this.id = id;
         setBook(book);
         this.rentStatus = rentStatus;
     }

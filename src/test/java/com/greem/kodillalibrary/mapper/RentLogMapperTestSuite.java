@@ -85,7 +85,9 @@ public class RentLogMapperTestSuite {
         RentLog mappedRentLog = rentLogMapper.mapToRentLog(rentLogDto);
 
         // Then
-        Assert.assertEquals(rentLog, mappedRentLog);
+        Assert.assertEquals(rentLog.getLibraryUser().getFirstName(), mappedRentLog.getLibraryUser().getFirstName());
+        Assert.assertEquals(rentLog.getLibraryUser().getLastName(), mappedRentLog.getLibraryUser().getLastName());
+        Assert.assertEquals(rentLog.getBookCopies().size(), mappedRentLog.getBookCopies().size());
     }
 
     @Test
@@ -110,8 +112,13 @@ public class RentLogMapperTestSuite {
 
         // Then
         Assert.assertEquals(rentLogList.size(), mappedRentLogList.size());
-        for (RentLog rentLog: mappedRentLogList) {
-            Assert.assertTrue(rentLogList.contains(rentLog));
+        for (int i = 0; i < mappedRentLogList.size(); i++) {
+            RentLog mapperRentLog = mappedRentLogList.get(i);
+            RentLog rentLog = rentLogList.get(i);
+            
+            Assert.assertEquals(rentLog.getLibraryUser().getFirstName(), mapperRentLog.getLibraryUser().getFirstName());
+            Assert.assertEquals(rentLog.getLibraryUser().getLastName(), mapperRentLog.getLibraryUser().getLastName());
+            Assert.assertEquals(rentLog.getBookCopies().size(), mapperRentLog.getBookCopies().size());
         }
     }
 

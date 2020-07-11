@@ -17,6 +17,23 @@ public class RentLogDto {
     @EqualsAndHashCode.Exclude
     private List<BookCopyDto> bookCopiesDto;
     private LibraryUserDto libraryUserDto;
-    private LocalDate rentDate;
+    @EqualsAndHashCode.Exclude
+    private LocalDate rentDate = LocalDate.now();
+    @EqualsAndHashCode.Exclude
     private LocalDate returnDate;
+
+    public RentLogDto(long id, List<BookCopyDto> bookCopiesDto, LibraryUserDto libraryUserDto) {
+        this.id = id;
+        this.bookCopiesDto = bookCopiesDto;
+        this.libraryUserDto = libraryUserDto;
+    }
+
+    public RentLogDto(List<BookCopyDto> bookCopiesDto, LibraryUserDto libraryUserDto) {
+        this.bookCopiesDto = bookCopiesDto;
+        this.libraryUserDto = libraryUserDto;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
 }

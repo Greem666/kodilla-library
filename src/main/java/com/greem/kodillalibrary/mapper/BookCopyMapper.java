@@ -1,11 +1,12 @@
 package com.greem.kodillalibrary.mapper;
 
 import com.greem.kodillalibrary.domain.book.Book;
-import com.greem.kodillalibrary.domain.book.BookDto;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopyDto;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
-import com.greem.kodillalibrary.domain.rentlog.RentLogDto;
+import com.greem.kodillalibrary.exceptions.BookNotFoundException;
+import com.greem.kodillalibrary.repository.BookCopyRepository;
+import com.greem.kodillalibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,25 +23,28 @@ public class BookCopyMapper {
     @Autowired
     private RentLogMapper rentLogMapper;
 
+    @Autowired
+    private BookRepository bookRepository;
+
     public BookCopy mapToBookCopy(BookCopyDto bookCopyDto) {
-        BookDto bookDto = Optional.ofNullable(bookCopyDto.getBookDto()).orElse(new BookDto());
-        List<RentLogDto> rentLogDtoList = Optional.ofNullable(bookCopyDto.getRentLogsDto()).orElse(new ArrayList<>());
+        long bookId = bookCopyDto.getBookDto().getId();
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException("Book id:" + bookId + " not found."));
+
         return new BookCopy(
                 bookCopyDto.getId(),
-                bookMapper.mapToBook(bookDto),
-                bookCopyDto.getRentStatus(),
-                rentLogMapper.mapToRentLogList(rentLogDtoList)
+                book,
+                bookCopyDto.getRentStatus()
         );
     }
 
     public BookCopyDto mapToBookCopyDto(BookCopy bookCopy) {
         Book book = Optional.ofNullable(bookCopy.getBook()).orElse(new Book());
         List<RentLog> rentLogList = Optional.ofNullable(bookCopy.getRentLogs()).orElse(new ArrayList<>());
+
         return new BookCopyDto(
                 bookCopy.getId(),
                 bookMapper.mapToBookDto(book),
-                bookCopy.getRentStatus(),
-                rentLogMapper.mapToRentLogDtoList(rentLogList)
+                bookCopy.getRentStatus()
         );
     }
 

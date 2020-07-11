@@ -5,6 +5,7 @@ import com.greem.kodillalibrary.domain.bookcopy.enums.RentStatus;
 import com.greem.kodillalibrary.domain.rentlog.RentLogDto;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,5 +18,16 @@ public class BookCopyDto {
     private BookDto bookDto;
     private RentStatus rentStatus;
     @EqualsAndHashCode.Exclude
-    private List<RentLogDto> rentLogsDto;
+    private List<RentLogDto> rentLogsDto = new ArrayList<>();
+
+    public BookCopyDto(long id, BookDto bookDto, RentStatus rentStatus) {
+        this.id = id;
+        this.bookDto = bookDto;
+        this.rentStatus = rentStatus;
+    }
+
+    public BookCopyDto(BookDto bookDto, RentStatus rentStatus) {
+        this.bookDto = bookDto;
+        this.rentStatus = rentStatus;
+    }
 }

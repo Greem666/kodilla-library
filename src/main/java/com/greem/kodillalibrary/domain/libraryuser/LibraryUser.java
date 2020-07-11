@@ -1,5 +1,6 @@
 package com.greem.kodillalibrary.domain.libraryuser;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -39,6 +40,7 @@ public class LibraryUser {
     @Column(name = "ACCOUNT_CREATED")
     private Date accountCreated = new Date();
 
+    @JsonBackReference
     @EqualsAndHashCode.Exclude
     @OneToMany(
             targetEntity = RentLog.class,
@@ -47,6 +49,19 @@ public class LibraryUser {
             fetch = FetchType.LAZY
     )
     private List<RentLog> rentLogs = new ArrayList<>();
+
+    public LibraryUser(long id, String firstName, String lastName, Date accountCreated) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.accountCreated = accountCreated;
+    }
+
+    public LibraryUser(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public LibraryUser(String firstName, String lastName) {
         this.firstName = firstName;

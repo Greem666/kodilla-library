@@ -4,6 +4,7 @@ import com.greem.kodillalibrary.domain.book.Book;
 import com.greem.kodillalibrary.domain.book.BookDto;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopyDto;
+import com.greem.kodillalibrary.domain.bookcopy.enums.RentStatus;
 import com.greem.kodillalibrary.domain.libraryuser.LibraryUser;
 import com.greem.kodillalibrary.domain.libraryuser.LibraryUserDto;
 import com.greem.kodillalibrary.mapper.BookCopyMapper;
@@ -44,6 +45,7 @@ public class LibraryController {
 
     @RequestMapping(method = RequestMethod.POST, value = "addBookCopy", consumes = APPLICATION_JSON_VALUE)
     public BookCopy addBookCopy(@RequestBody BookCopyDto bookCopyDto) {
+        bookCopyDto.setRentStatus(RentStatus.AVAILABLE);  // Freshly added copies should always be available! Should that logic be here?
         return bookCopyDbService.saveBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDto));
     }
 }

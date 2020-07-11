@@ -1,5 +1,6 @@
 package com.greem.kodillalibrary.domain.rentlog;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import com.greem.kodillalibrary.domain.libraryuser.LibraryUser;
 import lombok.*;
@@ -23,6 +24,7 @@ public class RentLog {
     @Column(name = "ID")
     private long id;
 
+    @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
@@ -32,6 +34,7 @@ public class RentLog {
     )
     private List<BookCopy> bookCopies = new ArrayList<>();
 
+    @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ManyToOne(
             cascade = CascadeType.ALL,
@@ -46,8 +49,18 @@ public class RentLog {
     @Column(name = "RETURN_DATE")
     private LocalDate returnDate;
 
-    public RentLog(BookCopy bookCopy, LibraryUser libraryUser) {
-        addBookCopy(bookCopy);
+    public RentLog(long id, List<BookCopy> bookCopies, LibraryUser libraryUser) {
+        this.id = id;
+        for (BookCopy bookCopy: bookCopies) {
+            addBookCopy(bookCopy);
+        }
+        setLibraryUser(libraryUser);
+    }
+
+    public RentLog(List<BookCopy> bookCopies, LibraryUser libraryUser) {
+        for (BookCopy bookCopy: bookCopies) {
+            addBookCopy(bookCopy);
+        }
         setLibraryUser(libraryUser);
     }
 

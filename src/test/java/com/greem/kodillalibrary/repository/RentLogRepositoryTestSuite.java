@@ -39,10 +39,8 @@ public class RentLogRepositoryTestSuite {
         BookCopy bookCopy3 = new BookCopy(book2, RentStatus.AVAILABLE);
         BookCopy bookCopy4 = new BookCopy(book2, RentStatus.AVAILABLE);
 
-        RentLog rentLog1 = new RentLog(bookCopy1, user1);
-        rentLog1.addBookCopy(bookCopy2);
-        RentLog rentLog2 = new RentLog(bookCopy3, user2);
-        rentLog2.addBookCopy(bookCopy4);
+        RentLog rentLog1 = new RentLog(Arrays.asList(bookCopy1, bookCopy2), user1);
+        RentLog rentLog2 = new RentLog(Arrays.asList(bookCopy3, bookCopy4), user2);
 
         rentLog2.setReturnDate(LocalDate.of(2020, 7, 31));
 

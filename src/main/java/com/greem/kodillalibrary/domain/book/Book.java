@@ -1,5 +1,6 @@
 package com.greem.kodillalibrary.domain.book;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -37,6 +38,7 @@ public class Book {
     @Column(name = "PUBLICATION_YEAR")
     private int publicationYear;
 
+    @JsonBackReference
     @EqualsAndHashCode.Exclude
     @OneToMany(
             targetEntity = BookCopy.class,
@@ -46,6 +48,13 @@ public class Book {
             fetch = FetchType.LAZY
     )
     private List<BookCopy> bookCopies = new ArrayList<>();
+
+    public Book(long id, String title, String author, int yearOfPublication) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publicationYear = LocalDate.of(yearOfPublication, 1, 1).getYear();
+    }
 
     public Book(String title, String author, int yearOfPublication) {
         this.title = title;

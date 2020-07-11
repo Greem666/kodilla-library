@@ -12,6 +12,4 @@ import java.util.List;
 @Transactional
 @Repository
 public interface BookCopyRepository extends CrudRepository<BookCopy, Long> {
-//    @Query
-//    List<BookCopy> findAllBookCopiesByTitle(@Param("TITLE") String title);
 }
