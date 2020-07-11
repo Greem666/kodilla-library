@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -49,16 +50,9 @@ public class Book {
     )
     private List<BookCopy> bookCopies = new ArrayList<>();
 
-    public Book(long id, String title, String author, int yearOfPublication) {
-        this.id = id;
+    public Book(String title, String author, int publicationYear) {
         this.title = title;
         this.author = author;
-        this.publicationYear = LocalDate.of(yearOfPublication, 1, 1).getYear();
-    }
-
-    public Book(String title, String author, int yearOfPublication) {
-        this.title = title;
-        this.author = author;
-        this.publicationYear = LocalDate.of(yearOfPublication, 1, 1).getYear();
+        this.publicationYear = LocalDate.of(publicationYear, 1, 1).getYear();
     }
 }

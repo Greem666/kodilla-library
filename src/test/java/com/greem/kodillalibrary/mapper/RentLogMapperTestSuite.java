@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Transactional
@@ -48,7 +49,7 @@ public class RentLogMapperTestSuite {
     @Before
     public void beforeEachTest() {
         // Entity objects
-        libraryUser = new LibraryUser(1, "John", "Doe", new Date(), new ArrayList<>());
+        libraryUser = new LibraryUser(1, "John", "Doe", LocalDateTime.now(), new ArrayList<>());
 
         book = new Book(2, "test title", "test author", 1998, new ArrayList<>());
 
@@ -62,7 +63,7 @@ public class RentLogMapperTestSuite {
         rentLogList = Arrays.asList(rentLog, rentLog2);
 
         // DTO objects
-        libraryUserDto = new LibraryUserDto(1, "John", "Doe", new Date(), new ArrayList<>());
+        libraryUserDto = new LibraryUserDto(1, "John", "Doe", LocalDateTime.now(), new ArrayList<>());
 
         bookDto = new BookDto(2, "test title", "test author", 1998, new ArrayList<>());
 

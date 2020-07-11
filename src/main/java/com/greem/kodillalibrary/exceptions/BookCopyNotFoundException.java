@@ -1,4 +1,7 @@
 package com.greem.kodillalibrary.exceptions;
 
-public class BookCopyNotFoundException {
+public class BookCopyNotFoundException extends RuntimeException {
+    public BookCopyNotFoundException(String message) {
+        super(message);
+    }
 }

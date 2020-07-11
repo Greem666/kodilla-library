@@ -57,7 +57,7 @@ public class BookMapperTestSuite {
         String bookDtoTitle = bookDto.getTitle();
         String bookDtoAuthor = bookDto.getAuthor();
         int bookDtoPublicationYear = bookDto.getPublicationYear();
-        List<BookCopyDto> bookDtoCopies = bookDto.getBookCopiesDto();
+        List<BookCopyDto> bookDtoCopies = bookDto.getBookCopies();
 
         // Then
         Assert.assertEquals(1, bookDtoId);
@@ -84,7 +84,7 @@ public class BookMapperTestSuite {
             String bookDtoTitle = bookDto.getTitle();
             String bookDtoAuthor = bookDto.getAuthor();
             int bookDtoPublicationYear = bookDto.getPublicationYear();
-            List<BookCopyDto> bookDtoCopies = bookDto.getBookCopiesDto();
+            List<BookCopyDto> bookDtoCopies = bookDto.getBookCopies();
 
             Assert.assertEquals(1 + diff, bookDtoId);
             Assert.assertEquals("title PH" + diff, bookDtoTitle);

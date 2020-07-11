@@ -3,13 +3,10 @@ package com.greem.kodillalibrary.mapper;
 import com.greem.kodillalibrary.domain.libraryuser.LibraryUser;
 import com.greem.kodillalibrary.domain.libraryuser.LibraryUserDto;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
-import com.greem.kodillalibrary.domain.rentlog.RentLogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,7 +21,9 @@ public class LibraryUserMapper {
         return new LibraryUser(
                 libraryUserDto.getId(),
                 libraryUserDto.getFirstName(),
-                libraryUserDto.getLastName()
+                libraryUserDto.getLastName(),
+                libraryUserDto.getAccountCreated(),
+                rentLogMapper.mapToRentLogList(libraryUserDto.getRentLogs())
         );
     }
 
@@ -34,7 +33,8 @@ public class LibraryUserMapper {
                 libraryUser.getId(),
                 libraryUser.getFirstName(),
                 libraryUser.getLastName(),
-                libraryUser.getAccountCreated()
+                libraryUser.getAccountCreated(),
+                rentLogMapper.mapToRentLogDtoList(libraryUser.getRentLogs())
         );
     }
 

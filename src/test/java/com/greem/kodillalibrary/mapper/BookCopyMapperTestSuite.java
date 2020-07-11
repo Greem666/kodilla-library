@@ -56,9 +56,9 @@ public class BookCopyMapperTestSuite {
         BookCopyDto bookCopyDto = bookCopyMapper.mapToBookCopyDto(bookCopy);
 
         long bookCopyDtoId = bookCopyDto.getId();
-        BookDto bookCopyDtoBook = bookCopyDto.getBookDto();
+        BookDto bookCopyDtoBook = bookCopyDto.getBook();
         RentStatus bookCopyDtoRentStatus = bookCopyDto.getRentStatus();
-        List<RentLogDto> bookCopyDtoRentLogList = bookCopyDto.getRentLogsDto();
+        List<RentLogDto> bookCopyDtoRentLogList = bookCopyDto.getRentLogs();
 
         // Then
         Assert.assertEquals(2, bookCopyDtoId);
@@ -89,9 +89,9 @@ public class BookCopyMapperTestSuite {
 
         for (BookCopyDto bookCopyDto: listBookCopiesDto) {
             long bookCopyDtoId = bookCopyDto.getId();
-            BookDto bookCopyDtoBook = bookCopyDto.getBookDto();
+            BookDto bookCopyDtoBook = bookCopyDto.getBook();
             RentStatus bookCopyDtoRentStatus = bookCopyDto.getRentStatus();
-            List<RentLogDto> bookCopyDtoRentLogDtoList = bookCopyDto.getRentLogsDto();
+            List<RentLogDto> bookCopyDtoRentLogDtoList = bookCopyDto.getRentLogs();
 
             Assert.assertEquals(1 + i, bookCopyDtoId);
             Assert.assertEquals(bookDto, bookCopyDtoBook);

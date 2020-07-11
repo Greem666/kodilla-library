@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class LibraryUserMapperTestSuite {
     @Test
     public void testMapToLibraryUser() {
         // Given
-        Date creationDate = new Date();
+        LocalDateTime creationDate = LocalDateTime.now();
         LibraryUserDto libraryUserDto = new LibraryUserDto(
                 1,
                 "test name",
@@ -46,7 +47,7 @@ public class LibraryUserMapperTestSuite {
     @Test
     public void testMapToLibraryUserDto() {
         // Given
-        Date creationDate = new Date();
+        LocalDateTime creationDate = LocalDateTime.now();
         LibraryUser libraryUser = new LibraryUser(
                 1,
                 "test name",
@@ -62,13 +63,13 @@ public class LibraryUserMapperTestSuite {
         Assert.assertEquals("test name", mappedLibraryUserDto.getFirstName());
         Assert.assertEquals("test surname", mappedLibraryUserDto.getLastName());
         Assert.assertEquals(creationDate, mappedLibraryUserDto.getAccountCreated());
-        Assert.assertEquals(new ArrayList<>(), mappedLibraryUserDto.getRentLogsDto());
+        Assert.assertEquals(new ArrayList<>(), mappedLibraryUserDto.getRentLogs());
     }
 
     @Test
     public void testMapToListOfLibraryUserDto() {
         // Given
-        Date creationDate1 = new Date();
+        LocalDateTime creationDate1 = LocalDateTime.now();
         LibraryUser libraryUser1 = new LibraryUser(
                 1,
                 "test name0",
@@ -76,7 +77,7 @@ public class LibraryUserMapperTestSuite {
                 creationDate1,
                 new ArrayList<>());
 
-        Date creationDate2 = new Date();
+        LocalDateTime creationDate2 = LocalDateTime.now();
         LibraryUser libraryUser2 = new LibraryUser(
                 2,
                 "test name1",
@@ -90,7 +91,7 @@ public class LibraryUserMapperTestSuite {
         );
 
         // Then
-        List<Date> creationDates = Arrays.asList(creationDate1, creationDate2);
+        List<LocalDateTime> creationDates = Arrays.asList(creationDate1, creationDate2);
 
         for (int i = 0; i < mappedLibraryUserDtoList.size(); i++) {
             LibraryUserDto libraryUserDto = mappedLibraryUserDtoList.get(i);
@@ -99,7 +100,7 @@ public class LibraryUserMapperTestSuite {
             Assert.assertEquals("test name" + i, libraryUserDto.getFirstName());
             Assert.assertEquals("test surname" + i, libraryUserDto.getLastName());
             Assert.assertEquals(creationDates.get(i), libraryUserDto.getAccountCreated());
-            Assert.assertEquals(new ArrayList<>(), libraryUserDto.getRentLogsDto());
+            Assert.assertEquals(new ArrayList<>(), libraryUserDto.getRentLogs());
         }
     }
 }

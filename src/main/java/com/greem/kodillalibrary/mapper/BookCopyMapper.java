@@ -5,7 +5,6 @@ import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopyDto;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
 import com.greem.kodillalibrary.exceptions.BookNotFoundException;
-import com.greem.kodillalibrary.repository.BookCopyRepository;
 import com.greem.kodillalibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,13 +26,15 @@ public class BookCopyMapper {
     private BookRepository bookRepository;
 
     public BookCopy mapToBookCopy(BookCopyDto bookCopyDto) {
-        long bookId = bookCopyDto.getBookDto().getId();
-        Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException("Book id:" + bookId + " not found."));
+//        long bookId = bookCopyDto.getBook().getId();
+//        Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException("Book id:" + bookId + " not found."));
 
         return new BookCopy(
                 bookCopyDto.getId(),
-                book,
-                bookCopyDto.getRentStatus()
+//                book,
+                bookMapper.mapToBook(bookCopyDto.getBook()),
+                bookCopyDto.getRentStatus(),
+                rentLogMapper.mapToRentLogList(bookCopyDto.getRentLogs())
         );
     }
 
@@ -44,7 +45,8 @@ public class BookCopyMapper {
         return new BookCopyDto(
                 bookCopy.getId(),
                 bookMapper.mapToBookDto(book),
-                bookCopy.getRentStatus()
+                bookCopy.getRentStatus(),
+                rentLogMapper.mapToRentLogDtoList(bookCopy.getRentLogs())
         );
     }
 

@@ -6,17 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder(access = AccessLevel.PUBLIC)
-//@SuperBuilder
 @EqualsAndHashCode
 @Getter
 @Entity
@@ -37,8 +38,9 @@ public class LibraryUser {
     private String lastName;
 
     @EqualsAndHashCode.Exclude
+    @CreationTimestamp
     @Column(name = "ACCOUNT_CREATED")
-    private Date accountCreated = new Date();
+    private LocalDateTime accountCreated;
 
     @JsonBackReference
     @EqualsAndHashCode.Exclude
@@ -49,19 +51,6 @@ public class LibraryUser {
             fetch = FetchType.LAZY
     )
     private List<RentLog> rentLogs = new ArrayList<>();
-
-    public LibraryUser(long id, String firstName, String lastName, Date accountCreated) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.accountCreated = accountCreated;
-    }
-
-    public LibraryUser(long id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 
     public LibraryUser(String firstName, String lastName) {
         this.firstName = firstName;

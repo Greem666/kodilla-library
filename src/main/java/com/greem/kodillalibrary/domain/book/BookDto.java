@@ -19,18 +19,5 @@ public class BookDto {
     @EqualsAndHashCode.Exclude
     private int publicationYear;
     @EqualsAndHashCode.Exclude
-    private List<BookCopyDto> bookCopiesDto = new ArrayList<>();
-
-    public BookDto(long id, String title, String author, int publicationYear) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.publicationYear = publicationYear;
-    }
-
-    public BookDto(String title, String author, int publicationYear) {
-        this.title = title;
-        this.author = author;
-        this.publicationYear = publicationYear;
-    }
+    private List<BookCopyDto> bookCopies = new ArrayList<>();
 }

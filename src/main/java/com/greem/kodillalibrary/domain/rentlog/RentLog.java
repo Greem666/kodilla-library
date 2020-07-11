@@ -37,7 +37,6 @@ public class RentLog {
     @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ManyToOne(
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     @JoinColumn(name = "LIBRARY_USER_ID")
@@ -48,14 +47,6 @@ public class RentLog {
 
     @Column(name = "RETURN_DATE")
     private LocalDate returnDate;
-
-    public RentLog(long id, List<BookCopy> bookCopies, LibraryUser libraryUser) {
-        this.id = id;
-        for (BookCopy bookCopy: bookCopies) {
-            addBookCopy(bookCopy);
-        }
-        setLibraryUser(libraryUser);
-    }
 
     public RentLog(List<BookCopy> bookCopies, LibraryUser libraryUser) {
         for (BookCopy bookCopy: bookCopies) {

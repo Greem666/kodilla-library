@@ -3,6 +3,8 @@ package com.greem.kodillalibrary.domain.libraryuser;
 import com.greem.kodillalibrary.domain.rentlog.RentLogDto;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,25 +19,7 @@ public class LibraryUserDto {
     private String firstName;
     private String lastName;
     @EqualsAndHashCode.Exclude
-    private Date accountCreated;
+    private LocalDateTime accountCreated;
     @EqualsAndHashCode.Exclude
-    private List<RentLogDto> rentLogsDto = new ArrayList<>();
-
-    public LibraryUserDto(long id, String firstName, String lastName, Date accountCreated) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.accountCreated = accountCreated;
-    }
-
-    public LibraryUserDto(long id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public LibraryUserDto(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+    private List<RentLogDto> rentLogs = new ArrayList<>();
 }

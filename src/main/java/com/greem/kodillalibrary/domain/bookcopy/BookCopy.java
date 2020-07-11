@@ -29,7 +29,7 @@ public class BookCopy {
     @JsonManagedReference
     @NotNull
     @EqualsAndHashCode.Exclude
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TITLE_ID")
     private Book book;
 
@@ -46,13 +46,7 @@ public class BookCopy {
     private List<RentLog> rentLogs = new ArrayList<>();
 
     public BookCopy(Book book, RentStatus rentStatus) {
-        setBook(book);
-        this.rentStatus = rentStatus;
-    }
-
-    public BookCopy(long id, Book book, RentStatus rentStatus) {
-        this.id = id;
-        setBook(book);
+        this.book = book;
         this.rentStatus = rentStatus;
     }
 
@@ -61,3 +55,4 @@ public class BookCopy {
         book.getBookCopies().add(this);
     }
 }
+

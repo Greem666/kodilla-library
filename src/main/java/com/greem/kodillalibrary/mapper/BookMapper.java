@@ -3,13 +3,11 @@ package com.greem.kodillalibrary.mapper;
 import com.greem.kodillalibrary.domain.book.Book;
 import com.greem.kodillalibrary.domain.book.BookDto;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
-import com.greem.kodillalibrary.domain.bookcopy.BookCopyDto;
 import com.greem.kodillalibrary.repository.BookCopyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,11 +21,13 @@ public class BookMapper {
     private BookCopyRepository bookCopyRepository;
 
     public Book mapToBook(BookDto bookDto) {
+        bookDto = Optional.ofNullable(bookDto).orElse(new BookDto());
         return new Book(
                 bookDto.getId(),
                 bookDto.getTitle(),
                 bookDto.getAuthor(),
-                bookDto.getPublicationYear()
+                bookDto.getPublicationYear(),
+                bookCopyMapper.mapToBookCopyList(bookDto.getBookCopies())
         );
     }
 
@@ -37,7 +37,8 @@ public class BookMapper {
                 book.getId(),
                 book.getTitle(),
                 book.getAuthor(),
-                book.getPublicationYear()
+                book.getPublicationYear(),
+                bookCopyMapper.mapToBookCopyDtoList(book.getBookCopies())
         );
     }
 

@@ -15,19 +15,8 @@ import java.util.List;
 @Setter
 public class BookCopyDto {
     private long id;
-    private BookDto bookDto;
+    private BookDto book;
     private RentStatus rentStatus;
     @EqualsAndHashCode.Exclude
-    private List<RentLogDto> rentLogsDto = new ArrayList<>();
-
-    public BookCopyDto(long id, BookDto bookDto, RentStatus rentStatus) {
-        this.id = id;
-        this.bookDto = bookDto;
-        this.rentStatus = rentStatus;
-    }
-
-    public BookCopyDto(BookDto bookDto, RentStatus rentStatus) {
-        this.bookDto = bookDto;
-        this.rentStatus = rentStatus;
-    }
+    private List<RentLogDto> rentLogs = new ArrayList<>();
 }

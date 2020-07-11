@@ -27,7 +27,9 @@ public class RentLogMapper {
         return new RentLog(
                 rentLogDto.getId(),
                 bookCopyMapper.mapToBookCopyList(bookCopyDtoList),
-                libraryUserMapper.mapToLibraryUser(libraryUserDto)
+                libraryUserMapper.mapToLibraryUser(libraryUserDto),
+                rentLogDto.getRentDate(),
+                rentLogDto.getReturnDate()
         );
     }
 
