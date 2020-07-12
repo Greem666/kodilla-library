@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import com.greem.kodillalibrary.domain.libraryuser.LibraryUser;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,11 +44,12 @@ public class RentLog {
     @JoinColumn(name = "LIBRARY_USER_ID")
     private LibraryUser libraryUser;
 
+    @CreationTimestamp
     @Column(name = "RENT_DATE")
-    private LocalDate rentDate = LocalDate.now();
+    private LocalDateTime rentDate;
 
     @Column(name = "RETURN_DATE")
-    private LocalDate returnDate;
+    private LocalDateTime returnDate;
 
     public RentLog(List<BookCopy> bookCopies, LibraryUser libraryUser) {
         for (BookCopy bookCopy: bookCopies) {
@@ -65,7 +68,11 @@ public class RentLog {
         libraryUser.getRentLogs().add(this);
     }
 
-    public void setReturnDate(LocalDate returnDate) {
+    public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public void returnBookCopy(BookCopy bookCopy) {
+        bookCopies.remove(bookCopy);
     }
 }

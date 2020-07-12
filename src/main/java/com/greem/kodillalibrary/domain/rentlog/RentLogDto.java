@@ -5,6 +5,7 @@ import com.greem.kodillalibrary.domain.libraryuser.LibraryUserDto;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class RentLogDto {
     private List<BookCopyDto> bookCopiesDto;
     private LibraryUserDto libraryUserDto;
     @EqualsAndHashCode.Exclude
-    private LocalDate rentDate = LocalDate.now();
+    private LocalDateTime rentDate;
     @EqualsAndHashCode.Exclude
-    private LocalDate returnDate;
+    private LocalDateTime returnDate;
 }

@@ -2,6 +2,7 @@ package com.greem.kodillalibrary.repository;
 
 import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,17 @@ import java.util.List;
 @Transactional
 @Repository
 public interface RentLogRepository extends CrudRepository<RentLog, Long> {
+    @Query(
+            "SELECT count(*) = 0 " +
+            "FROM RentLog rl JOIN rl.bookCopies bc " +
+            "WHERE rl.libraryUser.id = :USER_ID AND bc.book.id = :BOOK_ID AND rl.returnDate IS NULL"
+    )
+    boolean userHasNoActiveRentOfBook(@Param("BOOK_ID") long bookId, @Param("USER_ID") long userId);
+
+    @Query(
+            "SELECT rl.id " +
+            "FROM RentLog rl JOIN rl.bookCopies bc " +
+            "WHERE bc.id = :BOOK_COPY_ID AND rl.returnDate IS NULL"
+    )
+    long findOpenRentLogIdWithBookCopyId(@Param("BOOK_COPY_ID") long bookCopyId);
 }

@@ -22,7 +22,7 @@ public interface BookCopyRepository extends CrudRepository<BookCopy, Long> {
     int updateRentStatus(@Param("ID") long id, @Param("STATUS") RentStatus rentStatus);
 
     @Query(
-            "SELECT count(*) FROM BookCopy bc JOIN bc.book WHERE bc.book.title = :TITLE AND bc.rentStatus = 'AVAILABLE'"
+            "FROM BookCopy bc JOIN bc.book WHERE bc.book.id = :BOOK_ID AND bc.rentStatus = 'AVAILABLE'"
     )
-    int countAvailableBookCopies(@Param("TITLE") String title);
+    List<BookCopy> findAvailableBookCopies(@Param("BOOK_ID") long bookId);
 }
