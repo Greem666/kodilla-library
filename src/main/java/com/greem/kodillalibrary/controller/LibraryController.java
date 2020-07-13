@@ -8,9 +8,11 @@ import com.greem.kodillalibrary.domain.bookcopy.enums.RentStatus;
 import com.greem.kodillalibrary.domain.libraryuser.LibraryUser;
 import com.greem.kodillalibrary.domain.libraryuser.LibraryUserDto;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
+import com.greem.kodillalibrary.domain.rentlog.RentLogDto;
 import com.greem.kodillalibrary.mapper.BookCopyMapper;
 import com.greem.kodillalibrary.mapper.BookMapper;
 import com.greem.kodillalibrary.mapper.LibraryUserMapper;
+import com.greem.kodillalibrary.mapper.RentLogMapper;
 import com.greem.kodillalibrary.service.BookCopyDbService;
 import com.greem.kodillalibrary.service.BookDbService;
 import com.greem.kodillalibrary.service.LibraryUserDbService;
@@ -34,22 +36,35 @@ public class LibraryController {
     private final BookCopyDbService bookCopyDbService;
     private final BookCopyMapper bookCopyMapper;
     private final RentLogDbService rentLogDbService;
+    private final RentLogMapper rentLogMapper;
 
     @RequestMapping(method = RequestMethod.POST, value = "addLibraryUser", consumes = APPLICATION_JSON_VALUE)
-    public LibraryUser addLibraryUser(@RequestBody LibraryUserDto libraryUserDto) {
-        return libraryUserDbService.saveUser(libraryUserMapper.mapToLibraryUser(libraryUserDto));
+    public LibraryUserDto addLibraryUser(@RequestBody LibraryUserDto libraryUserDto) {
+        return libraryUserMapper.mapToLibraryUserDto(
+                libraryUserDbService.saveUser(
+                        libraryUserMapper.mapToLibraryUser(libraryUserDto)
+                )
+        );
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addBook", consumes = APPLICATION_JSON_VALUE)
-    public Book addBook(@RequestBody BookDto bookDto) {
-        return bookDbService.saveBook(bookMapper.mapToBook(bookDto));
+    public BookDto addBook(@RequestBody BookDto bookDto) {
+        return bookMapper.mapToBookDto(
+                bookDbService.saveBook(
+                        bookMapper.mapToBook(bookDto)
+                )
+        );
     }
 
     //TODO: Prevent saving of BookCopyDtos, which point to non-existing Book records
     @RequestMapping(method = RequestMethod.POST, value = "addBookCopy", consumes = APPLICATION_JSON_VALUE)
-    public BookCopy addBookCopy(@RequestBody BookCopyDto bookCopyDto) {
+    public BookCopyDto addBookCopy(@RequestBody BookCopyDto bookCopyDto) {
         bookCopyDto.setRentStatus(RentStatus.AVAILABLE);  // Freshly added copies should always be available! Should that logic be here?
-        return bookCopyDbService.saveBookCopy(bookCopyMapper.mapToBookCopy(bookCopyDto));
+        return bookCopyMapper.mapToBookCopyDto(
+                bookCopyDbService.saveBookCopy(
+                        bookCopyMapper.mapToBookCopy(bookCopyDto)
+                )
+        );
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "changeBookCopyRentStatus", consumes = APPLICATION_JSON_VALUE)
@@ -63,12 +78,16 @@ public class LibraryController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "rentBooks")
-    public RentLog rentBooks(@RequestParam List<Long> bookIds, @RequestParam long userId) {
-        return rentLogDbService.rentBooks(bookIds, userId);
+    public RentLogDto rentBooks(@RequestParam List<Long> bookIds, @RequestParam long userId) {
+        return rentLogMapper.mapToRentLogDto(
+                rentLogDbService.rentBooks(bookIds, userId)
+        );
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "returnBookCopies")
-    public List<RentLog> returnBookCopies(@RequestParam List<Long> bookCopyIds) {
-        return rentLogDbService.returnBookCopies(bookCopyIds);
+    public List<RentLogDto> returnBookCopies(@RequestParam List<Long> bookCopyIds) {
+        return rentLogMapper.mapToRentLogDtoList(
+                rentLogDbService.returnBookCopies(bookCopyIds)
+        );
     }
 }

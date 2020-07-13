@@ -25,15 +25,4 @@ public interface RentLogRepository extends CrudRepository<RentLog, Long> {
             "WHERE bc.id = :BOOK_COPY_ID AND rl.returnDate IS NULL"
     )
     long findOpenRentLogIdWithBookCopyId(@Param("BOOK_COPY_ID") long bookCopyId);
-
-    @Query(
-            "FROM RentLog rl " +
-            "JOIN rl.bookCopies bc " +
-            "JOIN bc.book bk " +
-            "WHERE rl.id = :RENT_LOG_ID"
-    )
-    RentLog findRentLogWithAssociationsById(@Param("RENT_LOG_ID") long rentLogId);
-
-    @EntityGraph(attributePaths = {"bookCopies", "bookCopies.book", "libraryUser"})
-    RentLog findById(long id);
 }

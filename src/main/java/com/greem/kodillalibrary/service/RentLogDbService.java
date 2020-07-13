@@ -83,14 +83,14 @@ public class RentLogDbService {
                 if (isRented(bookCopy)) {
                     // Get associated rentLog
                     long associatedRentLogId = rentLogRepository.findOpenRentLogIdWithBookCopyId(bookCopyId);
-//                    RentLog associatedRentLog = rentLogRepository.findById(associatedRentLogId).orElseThrow(
-//                            () -> new RentLogNotFound("Rent log id:" + associatedRentLogId + " was not found.")
-//                    );
+                    RentLog associatedRentLog = rentLogRepository.findById(associatedRentLogId).orElseThrow(
+                            () -> new RentLogNotFound("Rent log id:" + associatedRentLogId + " was not found.")
+                    );
                     // return bookcopy
                     bookCopy.setRentStatus(RentStatus.AVAILABLE);
                     bookCopyDbService.updateBookCopyRentStatus(bookCopy);
                     // add to rentlog to associatedRentLogs
-                    RentLog associatedRentLog = rentLogRepository.findById(associatedRentLogId);
+//                    RentLog associatedRentLog = rentLogRepository.findById(associatedRentLogId);
                     associatedRentLog.returnBookCopy(bookCopy);
 
                     // if no more rented books under this rentlog - set return date

@@ -50,6 +50,11 @@ public class BookCopy {
         this.rentStatus = rentStatus;
     }
 
+    public BookCopy(long id, Book book, RentStatus rentStatus) {
+        this(book, rentStatus);
+        this.id = id;
+    }
+
     public void setBook(Book book) {
         this.book = book;
         book.getBookCopies().add(this);

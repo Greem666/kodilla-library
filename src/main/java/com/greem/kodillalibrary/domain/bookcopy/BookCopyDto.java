@@ -19,4 +19,10 @@ public class BookCopyDto {
     private RentStatus rentStatus;
     @EqualsAndHashCode.Exclude
     private List<RentLogDto> rentLogs = new ArrayList<>();
+
+    public BookCopyDto(long id, BookDto book, RentStatus rentStatus) {
+        this.id = id;
+        this.book = book;
+        this.rentStatus = rentStatus;
+    }
 }

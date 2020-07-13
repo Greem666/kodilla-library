@@ -45,8 +45,6 @@ public class BookCopyRepositoryTestSuite {
         long bookId = book.getId();
 
         // Then
-        Assert.assertEquals(book, bookRepository.findById(bookId).orElse(new Book()));
-
         List<Long> copyIds = Arrays.asList(copyAvailableId, copyHiredId, copyLostId, copyDestroyedId);
         List<BookCopy> bookCopies = Arrays.asList(copyAvailable, copyHired, copyLost, copyDestroyed);
 

@@ -19,34 +19,22 @@ public class BookCopyMapper {
     @Autowired
     private BookMapper bookMapper;
 
-    @Autowired
-    private RentLogMapper rentLogMapper;
-
-    @Autowired
-    private BookRepository bookRepository;
-
     public BookCopy mapToBookCopy(BookCopyDto bookCopyDto) {
-//        long bookId = bookCopyDto.getBook().getId();
-//        Book book = bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException("Book id:" + bookId + " not found."));
 
         return new BookCopy(
                 bookCopyDto.getId(),
-//                book,
                 bookMapper.mapToBook(bookCopyDto.getBook()),
-                bookCopyDto.getRentStatus(),
-                rentLogMapper.mapToRentLogList(bookCopyDto.getRentLogs())
+                bookCopyDto.getRentStatus()
         );
     }
 
     public BookCopyDto mapToBookCopyDto(BookCopy bookCopy) {
         Book book = Optional.ofNullable(bookCopy.getBook()).orElse(new Book());
-        List<RentLog> rentLogList = Optional.ofNullable(bookCopy.getRentLogs()).orElse(new ArrayList<>());
 
         return new BookCopyDto(
                 bookCopy.getId(),
                 bookMapper.mapToBookDto(book),
-                bookCopy.getRentStatus(),
-                rentLogMapper.mapToRentLogDtoList(bookCopy.getRentLogs())
+                bookCopy.getRentStatus()
         );
     }
 

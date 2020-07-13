@@ -56,4 +56,12 @@ public class LibraryUser {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public LibraryUser(long id, String firstName, String lastName, LocalDateTime accountCreated) {
+        this(firstName, lastName);
+        this.id = id;
+        this.accountCreated = accountCreated;
+    }
+
+
 }

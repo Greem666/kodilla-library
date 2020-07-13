@@ -57,8 +57,8 @@ public class RentLogMapperTestSuite {
 //        bookCopy.setBook(book);
 //        book.getBookCopies().add(bookCopy);
 
-        rentLog = new RentLog(4, Collections.singletonList(bookCopy), libraryUser, LocalDate.now(), null);
-        rentLog2 = new RentLog(5, Collections.singletonList(bookCopy), libraryUser, LocalDate.now(), null);
+        rentLog = new RentLog(4, Collections.singletonList(bookCopy), libraryUser, LocalDateTime.now(), null);
+        rentLog2 = new RentLog(5, Collections.singletonList(bookCopy), libraryUser, LocalDateTime.now(), null);
 
         rentLogList = Arrays.asList(rentLog, rentLog2);
 
@@ -71,8 +71,8 @@ public class RentLogMapperTestSuite {
 //        bookCopyDto.setBookDto(bookDto);
 //        bookDto.getBookCopiesDto().add(bookCopyDto);
 
-        rentLogDto = new RentLogDto(4, Collections.singletonList(bookCopyDto), libraryUserDto, LocalDate.now(), null);
-        rentLogDto2 = new RentLogDto(5, Collections.singletonList(bookCopyDto), libraryUserDto, LocalDate.now(), null);
+        rentLogDto = new RentLogDto(4, Collections.singletonList(bookCopyDto), libraryUserDto, LocalDateTime.now(), null);
+        rentLogDto2 = new RentLogDto(5, Collections.singletonList(bookCopyDto), libraryUserDto, LocalDateTime.now(), null);
 
         rentLogDtoList = Arrays.asList(rentLogDto, rentLogDto2);
     }

@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class RentLogRepositoryTestSuite {
         RentLog rentLog1 = new RentLog(Arrays.asList(bookCopy1, bookCopy2), user1);
         RentLog rentLog2 = new RentLog(Arrays.asList(bookCopy3, bookCopy4), user2);
 
-        rentLog2.setReturnDate(LocalDate.of(2020, 7, 31));
+        rentLog2.setReturnDate(LocalDateTime.of(2020, 7, 31, 0, 0, 0));
 
         rentLogRepository.save(rentLog1);
         rentLogRepository.save(rentLog2);

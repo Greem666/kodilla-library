@@ -14,16 +14,12 @@ import java.util.stream.Collectors;
 @Component
 public class LibraryUserMapper {
 
-    @Autowired
-    private RentLogMapper rentLogMapper;
-
     public LibraryUser mapToLibraryUser(LibraryUserDto libraryUserDto) {
         return new LibraryUser(
                 libraryUserDto.getId(),
                 libraryUserDto.getFirstName(),
                 libraryUserDto.getLastName(),
-                libraryUserDto.getAccountCreated(),
-                rentLogMapper.mapToRentLogList(libraryUserDto.getRentLogs())
+                libraryUserDto.getAccountCreated()
         );
     }
 
@@ -33,8 +29,7 @@ public class LibraryUserMapper {
                 libraryUser.getId(),
                 libraryUser.getFirstName(),
                 libraryUser.getLastName(),
-                libraryUser.getAccountCreated(),
-                rentLogMapper.mapToRentLogDtoList(libraryUser.getRentLogs())
+                libraryUser.getAccountCreated()
         );
     }
 

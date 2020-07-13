@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class BookMapper {
-    @Autowired
-    private BookCopyMapper bookCopyMapper;
 
     @Autowired
     private BookCopyRepository bookCopyRepository;
@@ -26,19 +24,16 @@ public class BookMapper {
                 bookDto.getId(),
                 bookDto.getTitle(),
                 bookDto.getAuthor(),
-                bookDto.getPublicationYear(),
-                bookCopyMapper.mapToBookCopyList(bookDto.getBookCopies())
+                bookDto.getPublicationYear()
         );
     }
 
     public BookDto mapToBookDto(Book book) {
-        List<BookCopy> bookCopyList = Optional.ofNullable(book.getBookCopies()).orElse(new ArrayList<>());
         return new BookDto(
                 book.getId(),
                 book.getTitle(),
                 book.getAuthor(),
-                book.getPublicationYear(),
-                bookCopyMapper.mapToBookCopyDtoList(book.getBookCopies())
+                book.getPublicationYear()
         );
     }
 

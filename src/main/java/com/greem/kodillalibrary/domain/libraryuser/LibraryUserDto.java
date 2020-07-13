@@ -22,4 +22,11 @@ public class LibraryUserDto {
     private LocalDateTime accountCreated;
     @EqualsAndHashCode.Exclude
     private List<RentLogDto> rentLogs = new ArrayList<>();
+
+    public LibraryUserDto(long id, String firstName, String lastName, LocalDateTime accountCreated) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.accountCreated = accountCreated;
+    }
 }

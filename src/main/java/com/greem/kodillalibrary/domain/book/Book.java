@@ -55,4 +55,9 @@ public class Book {
         this.author = author;
         this.publicationYear = LocalDate.of(publicationYear, 1, 1).getYear();
     }
+
+    public Book(long id, String title, String author, int publicationYear) {
+        this(title, author, publicationYear);
+        this.id = id;
+    }
 }
