@@ -10,13 +10,11 @@ import com.greem.kodillalibrary.repository.BookRepository;
 import com.greem.kodillalibrary.repository.LibraryUserRepository;
 import com.greem.kodillalibrary.repository.RentLogRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -85,13 +83,14 @@ public class RentLogDbService {
                 if (isRented(bookCopy)) {
                     // Get associated rentLog
                     long associatedRentLogId = rentLogRepository.findOpenRentLogIdWithBookCopyId(bookCopyId);
+//                    RentLog associatedRentLog = rentLogRepository.findById(associatedRentLogId).orElseThrow(
+//                            () -> new RentLogNotFound("Rent log id:" + associatedRentLogId + " was not found.")
+//                    );
                     // return bookcopy
                     bookCopy.setRentStatus(RentStatus.AVAILABLE);
                     bookCopyDbService.updateBookCopyRentStatus(bookCopy);
                     // add to rentlog to associatedRentLogs
-                    RentLog associatedRentLog = rentLogRepository.findById(associatedRentLogId).orElseThrow(
-                            () -> new RentLogNotFound("Rent log id:" + associatedRentLogId + " was not found.")
-                    );
+                    RentLog associatedRentLog = rentLogRepository.findById(associatedRentLogId);
                     associatedRentLog.returnBookCopy(bookCopy);
 
                     // if no more rented books under this rentlog - set return date
@@ -104,7 +103,7 @@ public class RentLogDbService {
                 } else {
                     throw new BookCopyNotRentedException("Book copy id:" + bookCopyId + " is not currently rented!");
                 }
-            } catch (BookCopyNotFoundException e) {
+            } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
         }

@@ -1,14 +1,13 @@
 package com.greem.kodillalibrary.repository;
 
-import com.greem.kodillalibrary.domain.bookcopy.BookCopy;
 import com.greem.kodillalibrary.domain.rentlog.RentLog;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Transactional
 @Repository
@@ -26,4 +25,15 @@ public interface RentLogRepository extends CrudRepository<RentLog, Long> {
             "WHERE bc.id = :BOOK_COPY_ID AND rl.returnDate IS NULL"
     )
     long findOpenRentLogIdWithBookCopyId(@Param("BOOK_COPY_ID") long bookCopyId);
+
+    @Query(
+            "FROM RentLog rl " +
+            "JOIN rl.bookCopies bc " +
+            "JOIN bc.book bk " +
+            "WHERE rl.id = :RENT_LOG_ID"
+    )
+    RentLog findRentLogWithAssociationsById(@Param("RENT_LOG_ID") long rentLogId);
+
+    @EntityGraph(attributePaths = {"bookCopies", "bookCopies.book", "libraryUser"})
+    RentLog findById(long id);
 }
